@@ -1,14 +1,14 @@
 import { useState } from "react";
 import goalsImg from "../public/goals.jpg";
 import "./App.css";
-import Goal from "./components/Goal";
+import GoalList from "./components/GoalList";
 import Header from "./components/Header";
 
-type Goal = {
+export interface Goal {
   title: string;
   description: string;
   id: number;
-};
+}
 
 export default function App() {
   const [goals, setGoals] = useState<Goal[]>([]);
@@ -24,21 +24,17 @@ export default function App() {
     });
   }
 
+  function handleDeleteGoal(id: number) {
+    setGoals((prevGoals) => prevGoals.filter((goal) => goal.id !== id));
+  }
+
   return (
     <main>
       <Header image={{ src: goalsImg, alt: "Goals list" }}>
         <h1>Course Goals</h1>
       </Header>
       <button onClick={handleAddGoal}>Add Goal</button>
-      <ul>
-        {goals.map((goal) => (
-          <li key={goal.id}>
-            <Goal title={goal.title}>
-              <p>{goal.description}</p>
-            </Goal>
-          </li>
-        ))}
-      </ul>
+      <GoalList goals={goals} onDeleteGoal={handleDeleteGoal} />
     </main>
   );
 }
