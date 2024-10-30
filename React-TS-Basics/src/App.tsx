@@ -32,7 +32,7 @@ export default function App() {
   return (
     <main>
       <Header image={{ src: goalsImg, alt: "Goals list" }}>
-        <h1>Course Goals</h1>
+        <h1>Goal List</h1>
       </Header>
       <NewGoal onAddGoal={handleAddGoal} />
       <GoalList goals={goals} onDeleteGoal={handleDeleteGoal} />
